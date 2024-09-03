@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { Business } from './business.entity';
 
 @Entity()
 export class Service extends BaseEntity {
@@ -11,4 +12,12 @@ export class Service extends BaseEntity {
 
     @Column({ type: 'numeric', nullable: true })
     price?: number;
+
+    @Column({ type: 'varchar' })
+    businessId: string;
+
+    @ManyToOne(() => Business, (bussines) => bussines.services, {
+        onDelete: 'CASCADE',
+    })
+    business: Business;
 }

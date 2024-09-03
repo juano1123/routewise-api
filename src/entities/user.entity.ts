@@ -1,6 +1,7 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { UserRoleEnum } from 'src/user/dtos/user-role.enum';
+import { Business } from './business.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -21,4 +22,10 @@ export class User extends BaseEntity {
 
   @Column({ type: 'enum', enum: UserRoleEnum, default: UserRoleEnum.ADMIN })
   role: UserRoleEnum;
+
+  @OneToMany(() => Business, (business) => business.owner, {
+    cascade: true,
+    nullable: true,
+  })
+  business?: Business[];
 }
