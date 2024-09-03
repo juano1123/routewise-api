@@ -1,5 +1,6 @@
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { UserRoleEnum } from 'src/user/dtos/user-role.enum';
 
 @Entity()
 export class User extends BaseEntity {
@@ -17,4 +18,7 @@ export class User extends BaseEntity {
 
   @Column({ type: 'varchar', length: 300, select: false })
   password?: string;
+
+  @Column({ type: 'enum', enum: UserRoleEnum, default: UserRoleEnum.ADMIN })
+  role: UserRoleEnum;
 }
