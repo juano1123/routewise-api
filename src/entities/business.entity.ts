@@ -2,6 +2,7 @@ import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Service } from './service.entity';
 import { User } from './user.entity';
+import { Professional } from './professional.entity';
 
 @Entity()
 export class Business extends BaseEntity {
@@ -27,4 +28,10 @@ export class Business extends BaseEntity {
     nullable: true,
   })
   services?: Service[];
+
+  @OneToMany(() => Professional, (professional) => professional.business, {
+    cascade: true,
+    nullable: true,
+  })
+  professionals?: Professional[];
 }
