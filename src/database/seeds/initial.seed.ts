@@ -8,6 +8,7 @@ import { CreateProfessionalDto } from '../../professional/dtos/create-profession
 import { Professional } from '../../entities/professional.entity';
 import { Service } from '../../entities/service.entity';
 import { CreateServiceDto } from '../../service/dtos/create-service.dto';
+import { UserRoleEnum } from '../../user/dtos/user-role.enum';
 
 const adminUserDto: CreateUserDto = {
   firstName: 'Admin',
@@ -21,6 +22,7 @@ const professionalUserDto: CreateUserDto = {
   lastName: 'Professional',
   email: 'professional@professional.com',
   password: '123',
+  role: UserRoleEnum.PROFESSIONAL,
 };
 
 const businessDto: CreateBusinessDto = {
