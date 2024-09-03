@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
-import { UserRoleEnum } from 'src/user/dtos/user-role.enum';
+import { UserRoleEnum } from '../user/dtos/user-role.enum';
 import { Business } from './business.entity';
 
 @Entity()
