@@ -9,6 +9,7 @@ import { Professional } from '../../entities/professional.entity';
 import { Service } from '../../entities/service.entity';
 import { CreateServiceDto } from '../../service/dtos/create-service.dto';
 import { UserRoleEnum } from '../../user/dtos/user-role.enum';
+import { hash } from 'src/utils/security';
 
 const adminUserDto: CreateUserDto = {
   firstName: 'Admin',
@@ -24,6 +25,14 @@ const professionalUserDto: CreateUserDto = {
   password: '123',
   role: UserRoleEnum.PROFESSIONAL,
 };
+
+const clientUserDto: CreateUserDto = {
+  firstName: 'Client',
+  lastName: 'Client',
+  email: 'client@client.com',
+  password: '123',
+  role: UserRoleEnum.CLIENT,
+}
 
 const businessDto: CreateBusinessDto = {
   name: 'Local 1',
@@ -58,7 +67,10 @@ export default class InitialSeed implements Seeder {
     await queryRunner.startTransaction();
     try {
       const userRepository = connection.getRepository(User);
-      const user = userRepository.create(adminUserDto);
+      const user = userRepository.create({
+        ...adminUserDto,
+        password: await hash(adminUserDto.password),
+      });
       const adminUser = await queryRunner.manager.save(User, user);
       const businnesRepository = connection.getRepository(Business);
       const firstBusiness = businnesRepository.create({
@@ -70,7 +82,10 @@ export default class InitialSeed implements Seeder {
         firstBusiness,
       );
       const professionalRepository = connection.getRepository(Professional);
-      const professionalUser = userRepository.create(professionalUserDto);
+      const professionalUser = userRepository.create({
+        ...professionalUserDto,
+        password: await hash(professionalUserDto.password),
+      });
       const newProfessionalUser = await queryRunner.manager.save(
         User,
         professionalUser,
