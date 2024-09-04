@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import options from './config/database/orm';
 
 @Module({
@@ -11,6 +12,7 @@ import options from './config/database/orm';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot(options as TypeOrmModuleOptions),
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

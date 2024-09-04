@@ -1,11 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from 'src/entities/user.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Get()
   public async getAllUsers(): Promise<User[]> {
@@ -15,5 +15,10 @@ export class UserController {
   @Post()
   public async createUser(@Body() input: CreateUserDto): Promise<User> {
     return await this.userService.createUser(input);
+  }
+
+  @Get(':id')
+  public async getUserById(@Param() { id }: { id: string }): Promise<User> {
+    return await this.userService.getUserById(id);
   }
 }
