@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import options from './config/database/orm';
 import { AuthGuard } from './auth/auth.guard';
+import { ServiceModule } from './service/service.module';
 
 @Module({
   imports: [
@@ -12,13 +13,14 @@ import { AuthGuard } from './auth/auth.guard';
     TypeOrmModule.forRoot(options as TypeOrmModuleOptions),
     UserModule,
     AuthModule,
+    ServiceModule,
   ],
   controllers: [],
   providers: [
     {
       provide: 'APP_GUARD',
       useClass: AuthGuard,
-    }
+    },
   ],
 })
-export class AppModule { }
+export class AppModule {}

@@ -6,11 +6,11 @@ import { Public } from './constants';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
-    @Public()
-    @Post('login')
-    public async login(@Body() input: LoginDto): Promise<SignInSuccessDto> {
-        return await this.authService.login(input);
-    }
+  @Public()
+  @Post('login')
+  public async login(@Body() input: LoginDto): Promise<SignInSuccessDto> {
+    return await this.authService.login(input);
+  }
 }

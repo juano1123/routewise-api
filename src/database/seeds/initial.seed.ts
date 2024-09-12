@@ -26,14 +26,6 @@ const professionalUserDto: CreateUserDto = {
   role: UserRoleEnum.PROFESSIONAL,
 };
 
-const clientUserDto: CreateUserDto = {
-  firstName: 'Client',
-  lastName: 'Client',
-  email: 'client@client.com',
-  password: '123',
-  role: UserRoleEnum.CLIENT,
-}
-
 const businessDto: CreateBusinessDto = {
   name: 'Local 1',
   email: 'business@business.com',
