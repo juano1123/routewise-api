@@ -2,7 +2,7 @@ import { Factory, Seeder } from 'typeorm-seeding';
 import { DataSource } from 'typeorm';
 import { User } from '../../entities/user.entity';
 import { CreateUserDto } from '../../user/dtos/create-user.dto';
-import { hash } from 'src/utils/security';
+import { hash } from '../../utils/security';
 
 const adminUserDto: CreateUserDto = {
   firstName: 'Admin',
