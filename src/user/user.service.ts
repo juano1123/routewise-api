@@ -10,13 +10,13 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   public async getAllUsers(): Promise<User[]> {
     return this.userRepository.find({
       where: [
-        { role: UserRoleEnum.PROFESSIONAL },
-        { role: UserRoleEnum.CLIENT },
+        { role: UserRoleEnum.TRAVELER },
+        { role: UserRoleEnum.VIEWER },
       ],
     });
   }
