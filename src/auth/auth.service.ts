@@ -10,12 +10,12 @@ export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   public async login(input: LoginDto): Promise<SignInSuccessDto> {
     const user = await this.userService.getUserWithPassword(input.email);
     if (!user) throw new BadRequestException('Invalid email');
-    if (!(await compare(input.password, user.password)))
+    if (!(await compare(input.password, user?.password)))
       throw new BadRequestException('Invalid password');
     const payload = {
       sub: user.id,
@@ -23,11 +23,8 @@ export class AuthService {
       email: user.email,
     };
     return {
+      user,
       accessToken: await this.jwtService.signAsync(payload),
-      email: user.email,
-      role: user.role,
-      phoneNumber: user.phoneNumber,
-      photo: null, //TODO add photo to user entity
     };
   }
 }

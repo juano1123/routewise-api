@@ -4,6 +4,7 @@ import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UserRoleEnum } from './dtos/user-role.enum';
+import { UserDto } from './dtos/user.dto';
 
 @Injectable()
 export class UserService {
@@ -12,7 +13,7 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) { }
 
-  public async getAllUsers(): Promise<User[]> {
+  public async getAllUsers(): Promise<UserDto[]> {
     return this.userRepository.find({
       where: [
         { role: UserRoleEnum.TRAVELER },
@@ -21,20 +22,20 @@ export class UserService {
     });
   }
 
-  public async createUser(input: CreateUserDto): Promise<User> {
+  public async createUser(input: CreateUserDto): Promise<UserDto> {
     const user = this.userRepository.create(input);
     return this.userRepository.save(user);
   }
 
-  public async getUserById(id: string): Promise<User> {
+  public async getUserById(id: string): Promise<UserDto> {
     return this.userRepository.findOne({ where: { id } });
   }
 
-  public async getUserByEmail(email: string): Promise<User> {
+  public async getUserByEmail(email: string): Promise<UserDto> {
     return this.userRepository.findOne({ where: { email } });
   }
 
-  public getUserWithPassword(email: string): Promise<User> {
+  public getUserWithPassword(email: string): Promise<UserDto> {
     const query = this.userRepository.createQueryBuilder('user');
     query.where(`user.email = :email`, { email });
     query.addSelect('user.password');
